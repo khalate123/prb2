@@ -1,0 +1,229 @@
+/* Getting available version of Node JS */
+# PS C:\Users\HP> node --version
+v18.15.0
+/* Getting available version of Docker */
+# PS C:\Users\HP> docker --version
+Docker version 20.10.24, build 297e128
+/* Using folder WADL_Assignment_2B */
+# PS C:\Users\HP> cd WADL_Assignment_2B
+/* Displaying data from app.js file */
+# PS C:\Users\HP\WADL_Assignment_2B> node app.js
+Hello, I am Ghanishtha Rane
+This is my First Application
+/* Pulling node from the docker repository
+# PS C:\Users\HP\WADL_Assignment_2B> docker pull node
+Using default tag: latest
+latest: Pulling from library/node
+b0248cf3e63c: Pull complete
+127e97b4daf7: Pull complete
+0336c50c9f69: Pull complete
+1b89f3c7f7da: Pull complete
+2d6277217976: Pull complete
+9b293df1e1ca: Pull complete
+e6d1f4eea98c: Pull complete
+c0a4027ccc92: Pull complete
+14648abcbebd: Pull complete
+Status: Downloaded newer image for node:latest
+docker.io/library/node:latest
+/* Checking the images present in docker file and here "node" is appearing as an image */
+# PS C:\Users\HP\WADL_Assignment_2B> docker images
+REPOSITORY TAG IMAGE ID CREATED SIZE
+node latest 5bb57e984682 3 days ago 999MB
+/* Building a docker image with name firstdocker. Here, -t is for tagging the name */
+# PS C:\Users\HP\WADL_Assignment_2B> docker image build -t firstdocker .
+[+] Building 5.9s (7/7) FINISHED
+=> [internal] load build definition from Dockerfile
+0.1s
+=> => transferring dockerfile: 102B
+0.0s
+=> => transferring context: 2B
+0.0s
+=> [internal] load metadata for docker.io/library/node:alpine
+4.9s
+=> [internal] load build context
+0.0s
+=> CACHED [1/2] FROM
+docker.io/library/node:alpine@sha256:53741c7511b1836b5eb7e788a7b399c058b0b549f205d2c6af831
+ec1a9a81c 0.0s
+=> [2/2] COPY . /app
+0.1s
+=> exporting to image
+0.2s
+=> => exporting layers
+0.1s
+=> => writing image
+sha256:4a58944710ae907c0312a397ef94bac0bc70cca00936ae1cfe49cbbbd1e5b147 0.0s
+=> => naming to docker.io/library/firstdocker
+/* Building a docker image with name "docker/getting-started". Here, -t is for tagging the name */
+# PS C:\Users\HP\WADL_Assignment_2B> docker image build -t docker/getting-started .
+[+] Building 10.5s (8/8) FINISHED
+=> [internal] load build definition from Dockerfile
+0.0s
+=> => transferring dockerfile: 103B
+0.0s
+=> [internal] load .dockerignore
+0.0s
+=> [internal] load metadata for docker.io/library/node:alpine
+10.4s
+=> [auth] library/node:pull token for registry-1.docker.io
+0.0s
+=> [internal] load build context
+=> => transferring context: 128B
+0.0s
+0.0s
+=> [1/2] FROM
+docker.io/library/node:alpine@sha256:53741c7511b1836b5eb7e788a7b399c058b0b549f205d2c6af831
+ec1a9a81c31 0.0s
+=> CACHED [2/2] COPY . /app
+0.0s
+=> exporting to image
+0.0s
+=> => exporting layers
+0.0s
+=> => writing image
+sha256:5fcb1c290b8f87248a25702140c3e0b20c1c905fe156992ecfa7d37a76a9eef5 0.0s
+=> => naming to docker.io/docker/getting-started
+/* Checking the images present in docker file and here "firstdocker" and "docker/getting-started" is
+appearing as an image */
+# PS C:\Users\HP\WADL_Assignment_2B> docker images
+REPOSITORY TAG IMAGE ID CREATED SIZE
+firstdocker latest 4a58944710ae 2 hours ago 176MB
+node latest 5bb57e984682 3 days ago 999MB
+docker/getting-started latest 3e4394f6b72f 3 months ago 47MB
+/* Here we check the login credentials. we first need to login through the docker desktop to the web.
+We need to login to the hub.
+# PS C:\Users\HP\WADL_Assignment_2B> docker login
+Authenticating with existing credentials...
+Login Succeeded
+Logging in with your password grants your terminal complete access to your account.
+/* Push an image or a repository to a registry */
+# PS C:\Users\HP\WADL_Assignment_2B> docker tag firstdocker wadl_assignment_2bPS
+C:\Users\HP\WADL_Assignment_2B> docker push wadl_assignment_2b
+Using default tag: latest
+The push refers to repository [docker.io/ wadl_assignment_2b]
+63b8a2840ebe: Pushed
+965d9c709b97: Pushed
+36ba3d19b3d2: Pushed
+601c47069c33: Pushed
+f1417ff83b31: Pushed
+latest: digest: sha256:5bf54922ba86c548eb2716fa21fb09f1dc7ae227e8a86c3c90746691400acd24 size:
+1365
+/* Pull an image or repository from a registry */
+# PS C:\Users\HP\WADL_Assignment_2B> docker pull wadl_assignment_2bUsing default
+tag: latest
+latest: Pulling from wadl_assignment_2b
+Digest: sha256:5bf54922ba86c548eb2716fa21fb09f1dc7ae227e8a86c3c90746691400acd24
+Status: Image is up to date for wadl_assignment_2b:latest docker.io/
+wadl_assignment_2b:latest
+/* Running the image " wadl_assignment_2b" as a container */
+# PS C:\Users\HP\WADL_Assignment_2B> docker run -d -p 80:80 wadl_assignment_2b
+558021cddebd03aef8a350b56fc2e97c1eb4dbf5eeae0e611c7b2648f53a5836
+/* Running the image "docker/getting-started" as a container */
+# PS C:\Users\HP\WADL_Assignment_2B> docker run -d -p 80:80 docker/getting-started
+3a231244102f6d2e4c95495329873ea0f5c5963826c479a961baa091f316c7f1
+2023-04-16 03:05:12 /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform
+configuration
+2023-04-16 03:05:12 /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+2023-04-16 03:05:12 /docker-entrypoint.sh: Launching
+/docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+2023-04-16 03:05:12 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of
+/etc/nginx/conf.d/default.conf
+2023-04-16 03:05:12 10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in
+/etc/nginx/conf.d/default.conf
+2023-04-16 03:05:12 /docker-entrypoint.sh: Launching
+/docker-entrypoint.d/20-envsubst-on-templates.sh
+2023-04-16 03:05:12 /docker-entrypoint.sh: Launching
+/docker-entrypoint.d/30-tune-worker-processes.sh
+2023-04-16 03:05:12 /docker-entrypoint.sh: Configuration complete; ready for start up
+2023-04-16 03:05:12 2023/04/15 21:35:12 [notice] 1#1: using the "epoll" event method
+2023-04-16 03:05:12 2023/04/15 21:35:12 [notice] 1#1: nginx/1.23.3
+2023-04-16 03:05:12 2023/04/15 21:35:12 [notice] 1#1: built by gcc 12.2.1 20220924 (Alpine
+12.2.1_git20220924-r4)
+2023-04-16 03:05:12 2023/04/15 21:35:12 [notice] 1#1: OS: Linux
+5.10.16.3-microsoft-standard-WSL2
+2023-04-16 03:05:12 2023/04/15 21:35:12 [notice] 1#1: getrlimit(RLIMIT_NOFILE):
+1048576:1048576
+2023-04-16 03:05:12 2023/04/15 21:35:12 [notice] 1#1: start worker processes
+2023-04-16 03:05:12 2023/04/15 21:35:12 [notice] 1#1: start worker process 30
+2023-04-16 03:05:12 2023/04/15 21:35:12 [notice] 1#1: start worker process 31
+2023-04-16 03:05:12 2023/04/15 21:35:12 [notice] 1#1: start worker process 32
+2023-04-16 03:05:12 2023/04/15 21:35:12 [notice] 1#1: start worker process 33
+2023-04-16 03:05:12 2023/04/15 21:35:12 [notice] 1#1: start worker process 34
+2023-04-16 03:05:12 2023/04/15 21:35:12 [notice] 1#1: start worker process 35
+2023-04-16 03:05:12 2023/04/15 21:35:12 [notice] 1#1: start worker process 36
+2023-04-16 03:05:12 2023/04/15 21:35:12 [notice] 1#1: start worker process 37
+/* Using Docker --help Command */
+# PS C:\Users\HP\WADL_Assignment_2B> docker --help
+Usage: docker [OPTIONS] COMMAND
+A self-sufficient runtime for containers
+Options:
+--config string Location of client config files (default
+"C:\\Users\\HP\\.docker")
+-c, --context string Name of the context to use to connect to the
+daemon (overrides DOCKER_HOST env var and
+default context set with "docker context use")
+-D, --debug Enable debug mode
+-H, --host list Daemon socket(s) to connect to
+-l, --log-level string Set the logging level
+("debug"|"info"|"warn"|"error"|"fatal")
+(default "info")
+--tls Use TLS; implied by --tlsverify
+--tlscacert string Trust certs signed only by this CA (default
+"C:\\Users\\HP\\.docker\\ca.pem")
+--tlscert string Path to TLS certificate file (default
+"C:\\Users\\HP\\.docker\\cert.pem")
+--tlskey string Path to TLS key file (default
+"C:\\Users\\HP\\.docker\\key.pem")
+--tlsverify Use TLS and verify the remote
+-v, --version Print version information and quit
+Management Commands:
+builder Manage builds
+buildx* Docker Buildx (Docker Inc., v0.10.4)
+compose* Docker Compose (Docker Inc., v2.17.2)
+config Manage Docker configs
+container Manage containers
+context Manage contexts
+dev* Docker Dev Environments (Docker Inc., v0.1.0)
+extension* Manages Docker extensions (Docker Inc., v0.2.19)
+image Manage images
+init* Creates Docker-related starter files for your project (Docker Inc., v0.1.0-beta.2)
+manifest Manage Docker image manifests and manifest lists
+network Manage networks
+node Manage Swarm nodes
+plugin Manage plugins
+sbom* View the packaged-based Software Bill Of Materials (SBOM) for an image (Anchore Inc.,
+0.6.0)
+scan* Docker Scan (Docker Inc., v0.25.0)
+scout* Command line tool for Docker Scout (Docker Inc., v0.9.0)
+secret Manage Docker secrets
+service Manage services
+stack Manage Docker stacks
+swarm Manage Swarm
+system Manage Docker
+trust Manage trust on Docker images
+volume Manage volumes
+Commands:
+attach Attach local standard input, output, and error streams to a running container
+build Build an image from a Dockerfile
+commit Create a new image from a container's changes
+cp Copy files/folders between a container and the local filesystem
+create Create a new container
+diff Inspect changes to files or directories on a container's filesystem
+events Get real time events from the server
+images List images
+import Import the contents from a tarball to create a filesystem image
+login Log in to a Docker registry
+logout Log out from a Docker registry
+logs Fetch the logs of a container
+ps List containers
+pull Pull an image or a repository from a registry
+push Push an image or a repository to a registry
+rename Rename a container
+run Run a command in a new container
+save Save one or more images to a tar archive (streamed to STDOUT by default)
+start Start one or more stopped containers
+stop Stop one or more running containers
+tag Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+top Display the running processes of a container
+Run 'docker COMMAND --help' for more information on a command.
+
